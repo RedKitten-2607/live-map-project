@@ -16,6 +16,7 @@ TABLE_NAME = 'entity.pincode_store_mapping'
 CHANNEL_ID_COL = 'channel_id'
 LAT_COL = 'latitude'
 LON_COL = 'longitude'
+STORE_ID_COL = 'store_id'
 
 # Service Configuration: Maps your channel IDs to names and colors
 CHANNEL_ID_CONFIG = {
@@ -47,8 +48,8 @@ def fetch_data_from_db(conn, table, lat_col, lon_col, channel_col, channel_ids):
     """Fetches location data from a single table for specific channel IDs."""
     try:
         ids_to_query = tuple(channel_ids)
-        query = f'SELECT "{lat_col}", "{lon_col}", "{channel_col}" FROM {table} WHERE "{channel_col}" IN {ids_to_query};'
-        
+        query = f'SELECT "{lat_col}", "{lon_col}", "{channel_col}", "{STORE_ID_COL}" FROM {table} WHERE "{channel_col}" IN {ids_to_query};'
+
         print(f"\nExecuting query: {query}")
         df = pd.read_sql_query(query, conn)
         print(f"   - Fetched a total of {len(df)} rows from table '{table}'.")
@@ -78,7 +79,25 @@ if conn:
         center_lat = df[LAT_COL].mean()
         center_lon = df[LON_COL].mean()
 
+        store_counts = df.groupby('source_name').size()
+        store_counts_html = """
+        <div style="position: fixed; 
+                    bottom: 50px; 
+                    left: 50px; 
+                    z-index: 1000; 
+                    background-color: white; 
+                    padding: 10px; 
+                    border: 2px solid gray; 
+                    border-radius: 5px">
+            <h4>Store Counts</h4>
+        """
+        for service, count in store_counts.items():
+            color = CHANNEL_ID_CONFIG[df[df['source_name'] == service][CHANNEL_ID_COL].iloc[0]]['color']
+            store_counts_html += f'<p><span style="color:{color}">●</span> {service}: {count}</p>'
+        store_counts_html += "</div>"
+
         m = folium.Map(location=[center_lat, center_lon], zoom_start=10)
+        m.get_root().html.add_child(folium.Element(store_counts_html))
 
         print("\nAdding location points to the map...")
         # Loop through the dataframe to add each point
@@ -89,6 +108,7 @@ if conn:
 
             tooltip_text = (
                 f"<b>Service:</b> {row['source_name']}<br>"
+                f"<b>Store ID:</b> {row[STORE_ID_COL]}<br>"
                 f"<b>Lat:</b> {row[LAT_COL]:.4f}<br>"
                 f"<b>Lon:</b> {row[LON_COL]:.4f}"
             )
