@@ -116,11 +116,11 @@ if conn:
             # Add a circle marker with the specific color for that service
             folium.CircleMarker(
                 location=[row[LAT_COL], row[LON_COL]],
-                radius=4,
+                radius=5,
                 color=row['color'],
                 fill=True,
                 fill_color=row['color'],
-                fill_opacity=0.8,
+                fill_opacity=1,
                 tooltip=tooltip_text
             ).add_to(m)
 
