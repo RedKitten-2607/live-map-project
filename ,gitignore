@@ -1,13 +1,28 @@
-# Python cache
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
 
-# Virtual env
+# Virtual environments
+.venv/
 venv/
+ENV/
 
-# Local config with secrets
+# Jupyter / notebooks
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+
+# Sensitive configs
 data_pipeline/config.py
-
-# Generated frontend files
-frontend/config.js
-frontend/stores.json
