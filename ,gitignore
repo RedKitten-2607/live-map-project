@@ -1,0 +1,13 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual env
+venv/
+
+# Local config with secrets
+data_pipeline/config.py
+
+# Generated frontend files
+frontend/config.js
+frontend/stores.json
