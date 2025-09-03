@@ -12,9 +12,9 @@ from config import (
 )
 
 ROOT = os.path.dirname(os.path.dirname(__file__))  # project root
-# FRONTEND_DIR = os.path.join(ROOT, "frontend")
 STORES_JSON_PATH = os.path.join(ROOT, "stores.json")
 CONFIG_JS_PATH = os.path.join(ROOT, "config.js")
+
 
 def db_connect():
     try:
@@ -31,10 +31,17 @@ def db_connect():
         print(f"❌ Could not connect to Postgres: {e}")
         return None
 
+
 def fetch_data(conn):
     try:
         ids = tuple(CHANNEL_ID_CONFIG.keys())
-        # Build safe SQL using identifiers
+        # Handle schema-qualified tables like entity.pincode_store_mapping
+        if '.' in TABLE_NAME:
+            schema, tbl = TABLE_NAME.split('.', 1)
+            table_fragment = sql.SQL("{}.{}").format(sql.Identifier(schema), sql.Identifier(tbl))
+        else:
+            table_fragment = sql.Identifier(TABLE_NAME)
+
         query = sql.SQL(
             'SELECT {lat}, {lon}, {channel}, {store} FROM {table} WHERE {channel} IN %s'
         ).format(
@@ -42,33 +49,21 @@ def fetch_data(conn):
             lon=sql.Identifier(LON_COL),
             channel=sql.Identifier(CHANNEL_ID_COL),
             store=sql.Identifier(STORE_ID_COL),
-            table=sql.Identifier(*TABLE_NAME.split('.', 1)) if '.' in TABLE_NAME else sql.Identifier(TABLE_NAME)
+            table=table_fragment
         )
-
-        # For schemas like 'entity.pincode_store_mapping', we need to supply table differently:
-        if '.' in TABLE_NAME:
-            schema, tbl = TABLE_NAME.split('.', 1)
-            table_fragment = sql.SQL("{}.{}").format(sql.Identifier(schema), sql.Identifier(tbl))
-            query = sql.SQL(
-                'SELECT {lat}, {lon}, {channel}, {store} FROM {table} WHERE {channel} IN %s'
-            ).format(
-                lat=sql.Identifier(LAT_COL),
-                lon=sql.Identifier(LON_COL),
-                channel=sql.Identifier(CHANNEL_ID_COL),
-                store=sql.Identifier(STORE_ID_COL),
-                table=table_fragment
-            )
 
         with conn.cursor() as cur:
             cur.execute(query, (ids,))
             rows = cur.fetchall()
             cols = [LAT_COL, LON_COL, CHANNEL_ID_COL, STORE_ID_COL]
             df = pd.DataFrame(rows, columns=cols)
+
         print(f"✅ Fetched {len(df)} rows from database.")
         return df
     except Exception as e:
         print(f"❌ Error fetching data: {e}")
         return pd.DataFrame(columns=[LAT_COL, LON_COL, CHANNEL_ID_COL, STORE_ID_COL])
+
 
 def sanitize_and_export(df):
     records = []
@@ -95,16 +90,16 @@ def sanitize_and_export(df):
             "store_id": store_id
         })
 
-    os.makedirs(FRONTEND_DIR, exist_ok=True)
     with open(STORES_JSON_PATH, "w", encoding="utf-8") as f:
         json.dump(records, f, indent=2)
     print(f"✅ Wrote {len(records)} records to {STORES_JSON_PATH}")
 
+
 def write_config_js():
-    os.makedirs(FRONTEND_DIR, exist_ok=True)
     with open(CONFIG_JS_PATH, "w", encoding="utf-8") as f:
         f.write(f"const GOOGLE_MAPS_API_KEY = '{GOOGLE_MAPS_API_KEY}';\n")
     print(f"✅ Wrote config.js to {CONFIG_JS_PATH}")
+
 
 def main():
     conn = db_connect()
@@ -114,6 +109,7 @@ def main():
     conn.close()
     sanitize_and_export(df)
     write_config_js()
+
 
 if __name__ == "__main__":
     main()
