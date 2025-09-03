@@ -12,9 +12,9 @@ from config import (
 )
 
 ROOT = os.path.dirname(os.path.dirname(__file__))  # project root
-FRONTEND_DIR = os.path.join(ROOT, "frontend")
-STORES_JSON_PATH = os.path.join(FRONTEND_DIR, "stores.json")
-CONFIG_JS_PATH = os.path.join(FRONTEND_DIR, "config.js")
+# FRONTEND_DIR = os.path.join(ROOT, "frontend")
+STORES_JSON_PATH = os.path.join(ROOT, "stores.json")
+CONFIG_JS_PATH = os.path.join(ROOT, "config.js")
 
 def db_connect():
     try:
