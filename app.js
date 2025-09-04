@@ -82,7 +82,6 @@ function addMarkersByPlatform(data) {
       infoWindow.open(map, marker);
     });
 
-    // Add marker to its platform layer
     if (!serviceLayers[store.source_name]) {
       serviceLayers[store.source_name] = [];
     }
@@ -106,23 +105,21 @@ function buildLegendAndControls(data) {
     const color = serviceLayers[service][0].icon.fillColor;
     const checkboxId = `chk-${service}`;
 
-    legend.innerHTML += `
-      <div>
-        <input type="checkbox" id="${checkboxId}" checked>
-        <label for="${checkboxId}">
-          <span style="color:${color};font-size:16px;">●</span> ${service}: ${counts[service]}
-        </label>
-      </div>
+    const container = document.createElement("div");
+    container.innerHTML = `
+      <input type="checkbox" id="${checkboxId}" checked>
+      <label for="${checkboxId}">
+        <span style="color:${color};font-size:16px;">●</span> ${service}: ${counts[service]}
+      </label>
     `;
+    legend.appendChild(container);
 
-    // Add checkbox toggle logic
-    setTimeout(() => {
-      document.getElementById(checkboxId).addEventListener("change", (e) => {
-        serviceLayers[service].forEach((marker) => {
-          marker.setMap(e.target.checked ? map : null);
-        });
+    // Attach toggle logic directly
+    container.querySelector("input").addEventListener("change", (e) => {
+      serviceLayers[service].forEach((marker) => {
+        marker.setMap(e.target.checked ? map : null);
       });
-    }, 0);
+    });
   });
 
   map.controls[google.maps.ControlPosition.LEFT_TOP].push(legend);
