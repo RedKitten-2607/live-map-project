@@ -23,14 +23,18 @@
 
 /* Store counts panel */
 .info-panel {
-  position: absolute;
-  top: 60px;  /* below search */
-  left: 12px;
-  z-index: 5;
-  padding: 10px 14px;
-  background: rgba(40, 40, 40, 0.85);
+  background: rgba(30, 30, 30, 0.85);
   color: #fff;
-  font-size: 14px;
+  padding: 10px;
+  margin: 10px;
+  font-size: 13px;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  line-height: 1.4;
+  max-width: 200px;
+}
+
+.info-panel h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: bold;
 }

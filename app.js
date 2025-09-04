@@ -1,86 +1,36 @@
 let map;
+let serviceLayers = {}; // Stores markers grouped by platform
 
-async function initMap() {
-  // Map init
+function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 20.5937, lng: 78.9629 }, // India center
     zoom: 5,
-    styles: [
+    mapTypeId: "roadmap",
+    styles: [ // dark theme
       { elementType: "geometry", stylers: [{ color: "#212121" }] },
       { elementType: "labels.icon", stylers: [{ visibility: "off" }] },
       { elementType: "labels.text.fill", stylers: [{ color: "#757575" }] },
       { elementType: "labels.text.stroke", stylers: [{ color: "#212121" }] },
-      {
-        featureType: "administrative",
-        elementType: "geometry",
-        stylers: [{ color: "#757575" }]
-      },
-      {
-        featureType: "poi",
-        elementType: "geometry",
-        stylers: [{ color: "#181818" }]
-      },
-      {
-        featureType: "road",
-        elementType: "geometry.fill",
-        stylers: [{ color: "#2c2c2c" }]
-      },
-      {
-        featureType: "water",
-        elementType: "geometry",
-        stylers: [{ color: "#000000" }]
-      }
+      { featureType: "administrative", elementType: "geometry", stylers: [{ color: "#757575" }] },
+      { featureType: "poi", elementType: "geometry", stylers: [{ color: "#181818" }] },
+      { featureType: "road", elementType: "geometry", stylers: [{ color: "#383838" }] },
+      { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#212121" }] },
+      { featureType: "water", elementType: "geometry", stylers: [{ color: "#000000" }] },
+      { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#3d3d3d" }] }
     ]
   });
 
-  // Load store data
-  const response = await fetch("stores.json");
-  const stores = await response.json();
+  // Load stores.json
+  fetch("stores.json")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Loaded stores:", data.length);
+      addMarkersByPlatform(data);
+      buildLegendAndControls(data);
+    })
+    .catch((err) => console.error("Error loading stores.json:", err));
 
-  // Create markers
-  const markers = stores.map(store => {
-    const marker = new google.maps.Marker({
-      position: { lat: store.lat, lng: store.lon },
-      title: `${store.source_name}: ${store.store_id}`,
-      icon: {
-        path: google.maps.SymbolPath.CIRCLE,
-        scale: 6,
-        fillColor: store.color,
-        fillOpacity: 0.9,
-        strokeWeight: 0
-      }
-    });
-
-    const info = new google.maps.InfoWindow({
-      content: `
-        <div style="font-size:14px; color:#333;">
-          <b>${store.source_name}</b><br>
-          Store ID: ${store.store_id}<br>
-          Lat: ${store.lat.toFixed(4)}, Lon: ${store.lon.toFixed(4)}
-        </div>
-      `
-    });
-
-    marker.addListener("click", () => {
-      info.open(map, marker);
-    });
-
-    return marker;
-  });
-
-  // Cluster markers
-  new markerClusterer.MarkerClusterer({ map, markers });
-
-  // Update store counts panel
-  const counts = {};
-  stores.forEach(s => {
-    counts[s.source_name] = (counts[s.source_name] || 0) + 1;
-  });
-  document.getElementById("storeCounts").innerHTML = Object.entries(counts)
-    .map(([name, count]) => `<div><b>${name}</b>: ${count}</div>`)
-    .join("");
-
-  // Search box
+  // Add search box
   const input = document.getElementById("searchBox");
   const searchBox = new google.maps.places.SearchBox(input);
 
@@ -88,14 +38,92 @@ async function initMap() {
 
   searchBox.addListener("places_changed", () => {
     const places = searchBox.getPlaces();
-    if (!places || places.length === 0) return;
-
+    if (places.length === 0) return;
     const bounds = new google.maps.LatLngBounds();
-    places.forEach(place => {
+    places.forEach((place) => {
       if (!place.geometry) return;
-      if (place.geometry.viewport) bounds.union(place.geometry.viewport);
-      else bounds.extend(place.geometry.location);
+      if (place.geometry.viewport) {
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
     });
     map.fitBounds(bounds);
   });
+}
+
+// Group markers by service and add to map
+function addMarkersByPlatform(data) {
+  const infoWindow = new google.maps.InfoWindow();
+
+  data.forEach((store) => {
+    const marker = new google.maps.Marker({
+      position: { lat: store.lat, lng: store.lon },
+      map: map,
+      title: `${store.source_name}: ${store.store_id}`,
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillColor: store.color,
+        fillOpacity: 0.9,
+        strokeWeight: 1,
+        strokeColor: "#000000",
+        scale: 6,
+      },
+    });
+
+    marker.addListener("click", () => {
+      infoWindow.setContent(`
+        <div style="font-size:14px;line-height:1.4;">
+          <b>${store.source_name}</b><br>
+          Store ID: ${store.store_id}<br>
+          Lat: ${store.lat.toFixed(4)}, Lon: ${store.lon.toFixed(4)}
+        </div>
+      `);
+      infoWindow.open(map, marker);
+    });
+
+    // Add marker to its platform layer
+    if (!serviceLayers[store.source_name]) {
+      serviceLayers[store.source_name] = [];
+    }
+    serviceLayers[store.source_name].push(marker);
+  });
+}
+
+// Build legend with counts + checkboxes
+function buildLegendAndControls(data) {
+  const legend = document.createElement("div");
+  legend.classList.add("info-panel");
+
+  const counts = {};
+  data.forEach((s) => {
+    counts[s.source_name] = (counts[s.source_name] || 0) + 1;
+  });
+
+  legend.innerHTML = "<h4>Store Counts</h4>";
+
+  Object.keys(counts).forEach((service) => {
+    const color = serviceLayers[service][0].icon.fillColor;
+    const checkboxId = `chk-${service}`;
+
+    legend.innerHTML += `
+      <div>
+        <input type="checkbox" id="${checkboxId}" checked>
+        <label for="${checkboxId}">
+          <span style="color:${color};font-size:16px;">●</span> ${service}: ${counts[service]}
+        </label>
+      </div>
+    `;
+
+    // Add checkbox toggle logic
+    setTimeout(() => {
+      document.getElementById(checkboxId).addEventListener("change", (e) => {
+        serviceLayers[service].forEach((marker) => {
+          marker.setMap(e.target.checked ? map : null);
+        });
+      });
+    }, 0);
+  });
+
+  map.controls[google.maps.ControlPosition.LEFT_TOP].push(legend);
 }

@@ -8750,6 +8750,55 @@
     "store_id": "14789648-ebc8-458b-beb7-b7ecf23c5c61"
   },
   {
+    "lat": 18.514423,
+    "lon": 73.76805,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42050"
+  },
+  {
+    "lat": 13.007635,
+    "lon": 77.61312,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42310"
+  },
+  {
+    "lat": 19.21802,
+    "lon": 72.98518,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42308"
+  },
+  {
+    "lat": 28.538195,
+    "lon": 77.20481,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "43105"
+  },
+  {
+    "lat": 18.98591,
+    "lon": 72.83933,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42861"
+  },
+  {
+    "lat": 25.47,
+    "lon": 81.85,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "36469"
+  },
+  {
+    "lat": 18.508419,
+    "lon": 73.863045,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42060"
+  },
+  {
     "lat": 27.550484,
     "lon": 76.6015,
     "source_name": "Zepto",
@@ -27347,5 +27396,572 @@
     "source_name": "Blinkit",
     "color": "#D8C414",
     "store_id": "43549"
+  },
+  {
+    "lat": 12.917546,
+    "lon": 77.61298,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "34350"
+  },
+  {
+    "lat": 18.42991,
+    "lon": 73.897736,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "41827"
+  },
+  {
+    "lat": 28.397793,
+    "lon": 77.30584,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42859"
+  },
+  {
+    "lat": 30.75,
+    "lon": 76.612274,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "43007"
+  },
+  {
+    "lat": 23.058537,
+    "lon": 72.532364,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42572"
+  },
+  {
+    "lat": 30.656557,
+    "lon": 76.813,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42755"
+  },
+  {
+    "lat": 22.54,
+    "lon": 88.36,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "32504"
+  },
+  {
+    "lat": 22.464493,
+    "lon": 88.36352,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "43103"
+  },
+  {
+    "lat": 13.007636,
+    "lon": 77.687126,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "43291"
+  },
+  {
+    "lat": 19.441105,
+    "lon": 72.80315,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42304"
+  },
+  {
+    "lat": 28.397793,
+    "lon": 77.3468,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "43097"
+  },
+  {
+    "lat": 19.11378,
+    "lon": 72.859726,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "43041"
+  },
+  {
+    "lat": 28.650045,
+    "lon": 77.32809,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42528"
+  },
+  {
+    "lat": 12.903466,
+    "lon": 77.643715,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42814"
+  },
+  {
+    "lat": 30.671413,
+    "lon": 76.85846,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42754"
+  },
+  {
+    "lat": 30.649672,
+    "lon": 76.68227,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "34128"
+  },
+  {
+    "lat": 30.726227,
+    "lon": 76.77327,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42562"
+  },
+  {
+    "lat": 28.650045,
+    "lon": 77.16383,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "43541"
+  },
+  {
+    "lat": 17.47857,
+    "lon": 78.354645,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42036"
+  },
+  {
+    "lat": 18.97,
+    "lon": 72.82,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "37122"
+  },
+  {
+    "lat": 22.574354,
+    "lon": 88.499466,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "32396"
+  },
+  {
+    "lat": 18.61953,
+    "lon": 73.91406,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "30874"
+  },
+  {
+    "lat": 22.624054,
+    "lon": 88.43827,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "30396"
+  },
+  {
+    "lat": 28.47925,
+    "lon": 77.09044,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "34782"
+  },
+  {
+    "lat": 19.654257,
+    "lon": 76.886246,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "28759"
+  },
+  {
+    "lat": 12.935563,
+    "lon": 77.57601,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "31228"
+  },
+  {
+    "lat": 17.38848,
+    "lon": 78.45831,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "31592"
+  },
+  {
+    "lat": 19.242954,
+    "lon": 72.86212,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "33313"
+  },
+  {
+    "lat": 26.864712,
+    "lon": 81.00684,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "35086"
+  },
+  {
+    "lat": 12.917546,
+    "lon": 77.57601,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "38252"
+  },
+  {
+    "lat": 19.039965,
+    "lon": 73.06821,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "36780"
+  },
+  {
+    "lat": 28.596115,
+    "lon": 77.07965,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "33990"
+  },
+  {
+    "lat": 12.9591675,
+    "lon": 77.70179,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "30632"
+  },
+  {
+    "lat": 12.917546,
+    "lon": 77.61298,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "37736"
+  },
+  {
+    "lat": 28.595991,
+    "lon": 77.01988,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "31218"
+  },
+  {
+    "lat": 26.864712,
+    "lon": 81.00684,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "39563"
+  },
+  {
+    "lat": 12.935563,
+    "lon": 77.63147,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "37746"
+  },
+  {
+    "lat": 18.992416,
+    "lon": 72.82179,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "37744"
+  },
+  {
+    "lat": 28.648876,
+    "lon": 77.08109,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "36265"
+  },
+  {
+    "lat": 28.557539,
+    "lon": 77.1666,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "36042"
+  },
+  {
+    "lat": 28.716385,
+    "lon": 77.13198,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "36308"
+  },
+  {
+    "lat": 26.810663,
+    "lon": 80.90566,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "39446"
+  },
+  {
+    "lat": 19.143707,
+    "lon": 72.82274,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "39527"
+  },
+  {
+    "lat": 17.44854,
+    "lon": 78.43328,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "40244"
+  },
+  {
+    "lat": 28.630753,
+    "lon": 77.30209,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "39562"
+  },
+  {
+    "lat": 12.854482,
+    "lon": 77.61283,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "38146"
+  },
+  {
+    "lat": 28.599491,
+    "lon": 77.31312,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "39468"
+  },
+  {
+    "lat": 12.958175,
+    "lon": 80.25174,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "39294"
+  },
+  {
+    "lat": 28.420692,
+    "lon": 77.521255,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "36471"
+  },
+  {
+    "lat": 28.58463,
+    "lon": 77.24244,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "35678"
+  },
+  {
+    "lat": 28.393766,
+    "lon": 77.06919,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "41645"
+  },
+  {
+    "lat": 22.998482,
+    "lon": 72.53865,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "39336"
+  },
+  {
+    "lat": 26.936457,
+    "lon": 75.80085,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "38970"
+  },
+  {
+    "lat": 26.894415,
+    "lon": 75.76699,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "39450"
+  },
+  {
+    "lat": 26.849371,
+    "lon": 75.81728,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "39338"
+  },
+  {
+    "lat": 28.47728,
+    "lon": 77.54468,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "34014"
+  },
+  {
+    "lat": 28.635815,
+    "lon": 77.202965,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "39615"
+  },
+  {
+    "lat": 26.876724,
+    "lon": 80.99343,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "39461"
+  },
+  {
+    "lat": 17.406498,
+    "lon": 78.44892,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "40815"
+  },
+  {
+    "lat": 15.53699,
+    "lon": 73.824135,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "41951"
+  },
+  {
+    "lat": 13.121749,
+    "lon": 77.63184,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "41647"
+  },
+  {
+    "lat": 17.394485,
+    "lon": 78.483505,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "40242"
+  },
+  {
+    "lat": 19.242954,
+    "lon": 72.86212,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "41515"
+  },
+  {
+    "lat": 28.577974,
+    "lon": 77.40965,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "41641"
+  },
+  {
+    "lat": 17.451544,
+    "lon": 78.40181,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "40862"
+  },
+  {
+    "lat": 13.039256,
+    "lon": 80.21489,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "40441"
+  },
+  {
+    "lat": 12.971599,
+    "lon": 77.603806,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "41361"
+  },
+  {
+    "lat": 18.448359,
+    "lon": 73.83755,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "41533"
+  },
+  {
+    "lat": 28.430063,
+    "lon": 76.93856,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "40765"
+  },
+  {
+    "lat": 12.953581,
+    "lon": 77.73319,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "41546"
+  },
+  {
+    "lat": 28.625116,
+    "lon": 77.072525,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42108"
+  },
+  {
+    "lat": 30.746233,
+    "lon": 76.75041,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "37468"
+  },
+  {
+    "lat": 28.522587,
+    "lon": 77.020775,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42460"
+  },
+  {
+    "lat": 22.592373,
+    "lon": 88.372696,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "41552"
+  },
+  {
+    "lat": 13.102319,
+    "lon": 80.261246,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "41443"
+  },
+  {
+    "lat": 28.620203,
+    "lon": 77.35735,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42102"
+  },
+  {
+    "lat": 12.836464,
+    "lon": 77.668236,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "41917"
+  },
+  {
+    "lat": 22.99728,
+    "lon": 72.65348,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42042"
+  },
+  {
+    "lat": 12.971599,
+    "lon": 77.65003,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42100"
+  },
+  {
+    "lat": 13.093309,
+    "lon": 80.18723,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "41010"
+  },
+  {
+    "lat": 13.025653,
+    "lon": 77.594666,
+    "source_name": "Blinkit",
+    "color": "#D8C414",
+    "store_id": "42124"
   }
 ]
