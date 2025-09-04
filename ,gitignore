@@ -19,7 +19,6 @@ Thumbs.db
 # Logs
 *.log
 
-# Sensitive files (generated in CI/CD)
-config.js
-stores.json
+# Sensitive configs
 data_pipeline/config.py
+config.js   
