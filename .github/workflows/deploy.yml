@@ -18,23 +18,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        run: pip install psycopg2-binary pandas
-
-      - name: Export JSON + Config
-        env:
-          PG_HOST: ${{ secrets.PG_HOST }}
-          PG_DATABASE: ${{ secrets.PG_DATABASE }}
-          PG_USER: ${{ secrets.PG_USER }}
-          PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
-          PG_PORT: ${{ secrets.PG_PORT }}
-          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
-        run: python data_pipeline/export_json.py
+      - name: Inject Google Maps API key
+        run: |
+          echo "const GOOGLE_MAPS_API_KEY = '${{ secrets.GOOGLE_MAPS_API_KEY }}';" > config.js
 
       - name: Upload artifact for Pages
         uses: actions/upload-pages-artifact@v3
