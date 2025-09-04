@@ -10,8 +10,14 @@
   <!-- Search Box -->
   <input id="searchBox" type="text" placeholder="Search place or pincode">
 
+  <!-- Store Counts Panel -->
+  <div id="storeCounts" class="info-panel">Loading store counts...</div>
+
   <!-- Map Container -->
   <div id="map"></div>
+
+  <!-- Error Panel -->
+  <div id="errorPanel" class="info-panel hidden"></div>
 
   <!-- Config first -->
   <script src="config.js"></script>
@@ -21,14 +27,16 @@
 
   <!-- Google Maps API -->
   <script>
-    const gmapScript = document.createElement("script");
-    gmapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initMap`;
-    gmapScript.async = true;
-    gmapScript.defer = true;
-    document.head.appendChild(gmapScript);
+    if (typeof GOOGLE_MAPS_API_KEY === "undefined" || !GOOGLE_MAPS_API_KEY) {
+      document.getElementById("errorPanel").innerText = "⚠️ Missing Google Maps API Key.";
+      document.getElementById("errorPanel").classList.remove("hidden");
+    } else {
+      const gmapScript = document.createElement("script");
+      gmapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initMap`;
+      gmapScript.async = true;
+      gmapScript.defer = true;
+      document.head.appendChild(gmapScript);
+    }
   </script>
-
-  <!-- MarkerClusterer for performance -->
-  <!-- <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script> -->
 </body>
 </html>

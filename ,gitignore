@@ -3,16 +3,11 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.db
-*.sqlite3
 
 # Virtual environments
 .venv/
 venv/
 ENV/
-
-# Jupyter / notebooks
-.ipynb_checkpoints/
 
 # System files
 .DS_Store
@@ -24,7 +19,7 @@ Thumbs.db
 # Logs
 *.log
 
-# Sensitive configs
-data_pipeline/config.py
+# Sensitive files (generated in CI/CD)
 config.js
 stores.json
+data_pipeline/config.py
