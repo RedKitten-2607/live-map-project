@@ -26,3 +26,5 @@ Thumbs.db
 
 # Sensitive configs
 data_pipeline/config.py
+config.js
+stores.json
