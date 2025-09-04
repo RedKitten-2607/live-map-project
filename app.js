@@ -1,45 +1,60 @@
 let map;
-let serviceLayers = {};
-let markers = [];
+let layers = {};
+let markers = {};
+let storeCounts = {};
 
 function initMap() {
+  // Dark theme styles
+  const darkStyle = [
+    { elementType: "geometry", stylers: [{ color: "#212121" }] },
+    { elementType: "labels.icon", stylers: [{ visibility: "off" }] },
+    { elementType: "labels.text.fill", stylers: [{ color: "#757575" }] },
+    { elementType: "labels.text.stroke", stylers: [{ color: "#212121" }] },
+    {
+      featureType: "administrative",
+      elementType: "geometry",
+      stylers: [{ color: "#757575" }],
+    },
+    {
+      featureType: "poi",
+      elementType: "geometry",
+      stylers: [{ color: "#181818" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry.fill",
+      stylers: [{ color: "#2c2c2c" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#1c1c1c" }],
+    },
+    {
+      featureType: "water",
+      elementType: "geometry",
+      stylers: [{ color: "#000000" }],
+    },
+  ];
+
   map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 20.5937, lng: 78.9629 }, // India center
+    center: { lat: 20.5937, lng: 78.9629 }, // India
     zoom: 5,
-    styles: [ /* dark theme styles */ ]
+    styles: darkStyle,
   });
 
-  // Load store data
-  fetch("stores.json")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("stores.json not found");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      if (!data.length) {
-        document.getElementById("errorPanel").innerText = "⚠️ No store data available.";
-        document.getElementById("errorPanel").classList.remove("hidden");
-        return;
-      }
-      renderStores(data);
-    })
-    .catch((err) => {
-      document.getElementById("errorPanel").innerText = "⚠️ Failed to load store data.";
-      document.getElementById("errorPanel").classList.remove("hidden");
-      console.error(err);
-    });
-
-  // Add search box
+  // SearchBox
   const input = document.getElementById("searchBox");
   const searchBox = new google.maps.places.SearchBox(input);
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
+  map.addListener("bounds_changed", () => {
+    searchBox.setBounds(map.getBounds());
+  });
 
   searchBox.addListener("places_changed", () => {
     const places = searchBox.getPlaces();
-    if (places.length == 0) return;
+    if (places.length === 0) return;
 
     const bounds = new google.maps.LatLngBounds();
     places.forEach((place) => {
@@ -49,50 +64,83 @@ function initMap() {
     });
     map.fitBounds(bounds);
   });
+
+  // Load store data
+  fetch("stores.json")
+    .then((res) => res.json())
+    .then((data) => {
+      renderStores(data);
+      renderControls();
+    })
+    .catch((err) => console.error("Error loading stores.json", err));
 }
 
 function renderStores(data) {
-  const storeCounts = {};
-  markers = [];
-
   data.forEach((store) => {
+    const { lat, lon, source_name, color } = store;
+
+    if (!layers[source_name]) {
+      layers[source_name] = new google.maps.MVCArray();
+      markers[source_name] = [];
+      storeCounts[source_name] = 0;
+    }
+
     const marker = new google.maps.Marker({
-      position: { lat: store.lat, lng: store.lon },
-      map,
-      title: `${store.source_name}: ${store.store_id}`,
+      position: { lat, lng: lon },
+      map: map,
+      title: source_name,
       icon: {
         path: google.maps.SymbolPath.CIRCLE,
         scale: 6,
-        fillColor: store.color,
+        fillColor: color,
         fillOpacity: 1,
-        strokeWeight: 1,
-        strokeColor: "#000"
-      }
+        strokeWeight: 0.5,
+        strokeColor: "#fff",
+      },
     });
 
-    const infowindow = new google.maps.InfoWindow({
-      content: `
-        <b>${store.source_name}</b><br>
-        Store ID: ${store.store_id}<br>
-        Lat: ${store.lat}, Lon: ${store.lon}
-      `
-    });
-
-    marker.addListener("click", () => {
-      infowindow.open(map, marker);
-    });
-
-    markers.push(marker);
-
-    // Count stores per source
-    storeCounts[store.source_name] = (storeCounts[store.source_name] || 0) + 1;
+    markers[source_name].push(marker);
+    layers[source_name].push(marker);
+    storeCounts[source_name]++;
   });
 
-  // Update counts panel
-  let countsHtml = "<h4>Store Counts</h4>";
-  for (let [source, count] of Object.entries(storeCounts)) {
-    const color = data.find((s) => s.source_name === source).color;
-    countsHtml += `<p><span style="color:${color}">●</span> ${source}: ${count}</p>`;
+  updateStoreCounts();
+}
+
+function updateStoreCounts() {
+  const panel = document.getElementById("storeCounts");
+  panel.innerHTML = "<b>Store Counts</b><br>";
+  for (const source in storeCounts) {
+    panel.innerHTML += `${source}: ${storeCounts[source]}<br>`;
   }
-  document.getElementById("storeCounts").innerHTML = countsHtml;
+}
+
+function renderControls() {
+  const controls = document.getElementById("layerControls");
+  controls.innerHTML = "<b>Toggle Sources</b><br>";
+
+  for (const source in layers) {
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.id = `chk-${source}`;
+    checkbox.checked = true;
+
+    checkbox.addEventListener("change", (e) => {
+      toggleLayer(source, e.target.checked);
+    });
+
+    const label = document.createElement("label");
+    label.htmlFor = `chk-${source}`;
+    label.innerText = source;
+
+    controls.appendChild(checkbox);
+    controls.appendChild(label);
+    controls.appendChild(document.createElement("br"));
+  }
+}
+
+function toggleLayer(source, visible) {
+  markers[source].forEach((marker) => {
+    marker.setMap(visible ? map : null);
+  });
 }
