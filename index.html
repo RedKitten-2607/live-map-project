@@ -13,13 +13,13 @@
   <!-- Store Counts Panel -->
   <div id="storeCounts" class="info-panel">Loading store counts...</div>
 
-  <!-- Layer Controls -->
+  <!-- Layer Toggle -->
   <div id="layerControls" class="info-panel"></div>
 
   <!-- Map Container -->
   <div id="map"></div>
 
-  <!-- Config (API Key) -->
+  <!-- Config first -->
   <script src="config.js"></script>
 
   <!-- App logic -->
@@ -27,12 +27,15 @@
 
   <!-- Google Maps API -->
   <script>
+    if (typeof GOOGLE_MAPS_API_KEY === "undefined") {
+    console.error("❌ GOOGLE_MAPS_API_KEY is missing. Did you run via GitHub Actions?");
+  } else {
     const gmapScript = document.createElement("script");
-    gmapScript.src =
-      `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initMap`;
+    gmapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initMap`;
     gmapScript.async = true;
     gmapScript.defer = true;
     document.head.appendChild(gmapScript);
+  }
   </script>
 </body>
 </html>
